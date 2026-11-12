@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- ★ বদলান: ব্রাউজারের ট্যাবে যে নাম দেখাবে -->
+<title>APU IT Academy | রংপুরে আইটি প্রশিক্ষণ</title>
+<meta name="description" content="APU IT Academy, রংপুর। ওয়েব ডেভেলপমেন্ট, গ্রাফিক ডিজাইন, ডিজিটাল মার্কেটিং ও আরও কোর্সে হাতে-কলমে প্রশিক্ষণ।">
+
+<!-- ট্যাবের ছোট আইকন (লোগো) -->
+<link rel="icon" href="logo.png">
+
+<style>
+/* =====================================================
+   ১. রং ও ফন্ট (পুরো সাইটের রং এখান থেকেই বদলানো যায়)
+   ===================================================== */
+:root{
+  --navy:#0b1f5c;   /* গাঢ় নীল */
+  --blue:#1565e8;   /* উজ্জ্বল নীল */
+  --soft:#eef3ff;   /* হালকা নীল ব্যাকগ্রাউন্ড */
+  --ink:#16203d;    /* লেখার রং */
+  --mute:#56648a;   /* ধূসর লেখা */
+  --line:#d5def5;   /* বর্ডারের রং */
+  --sun:#ffb703;    /* হলুদ হাইলাইট */
+}
+*{box-sizing:border-box;margin:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Hind Siliguri","Nirmala UI","Noto Sans Bengali",Calibri,sans-serif;
+  color:var(--ink);line-height:1.7;font-size:17px;overflow-x:hidden;
+}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}   /* কনটেন্টের প্রস্থ */
+
+/* =====================================================
+   ২. উপরের হেডার ও মেনু
+   ===================================================== */
+#bar{position:fixed;top:0;left:0;height:4px;width:0;background:var(--sun);z-index:20}  /* স্ক্রল করলে উপরের হলুদ লাইন */
+header{position:sticky;top:0;z-index:10;background:#fffffff2;backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:8px 20px;max-width:1060px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;color:var(--navy);font-size:19px}
+.brand img{width:42px;height:42px}
+.brand b{color:var(--blue)}
+nav a{margin-left:20px;text-decoration:none;color:var(--mute);font-weight:500}
+nav a:hover{color:var(--blue)}
+#mb{display:none;background:none;border:2px solid var(--navy);color:var(--navy);border-radius:8px;padding:4px 12px;font:inherit;font-weight:600}  /* মোবাইলের মেনু বাটন */
+
+/* =====================================================
+   ৩. হিরো (একদম উপরের বড় নীল অংশ)
+   ===================================================== */
+.hero{background:linear-gradient(135deg,#0b1f5c,#123a9c);color:#fff;padding:64px 0 120px;position:relative;overflow:hidden}
+.px{position:absolute;width:var(--s);height:var(--s);background:var(--c);opacity:.35;left:var(--x);top:var(--y);animation:fl 7s ease-in-out infinite;animation-delay:var(--d)}  /* ভাসমান ছোট বর্গ */
+@keyframes fl{50%{transform:translateY(-22px) rotate(20deg)}}
+.hero .wrap{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center;position:relative}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.25;max-width:15em}
+.typed{color:var(--sun);border-right:3px solid var(--sun);padding-right:4px;white-space:nowrap}  /* টাইপ হওয়া লেখা */
+.hero p{margin:16px 0 26px;color:#c9d6ff;max-width:30em;font-size:18px}
+.btn{display:inline-block;padding:11px 22px;border-radius:8px;text-decoration:none;font-weight:600;margin:0 10px 10px 0;transition:transform .2s}
+.btn:hover{transform:translateY(-3px)}
+.btn.main{background:var(--sun);color:#1b2240}
+.btn.line{border:2px solid #7e9eea;color:#fff}
+.logo{justify-self:center;width:min(270px,68vw);aspect-ratio:1;background:#fff;border-radius:50%;padding:6px;box-shadow:0 0 0 10px #ffffff22,0 0 0 24px #ffffff12;animation:fl 6s ease-in-out infinite}
+.logo img{width:100%;height:100%;border-radius:50%;display:block}
+.wave{position:absolute;left:0;bottom:-1px;width:100%;height:70px}  /* নিচের ঢেউ */
+
+/* চলমান টুলসের ফিতা */
+.tools{background:var(--navy);color:#9fb6f5;overflow:hidden;white-space:nowrap;padding:10px 0;font-weight:600}
+.tools div{display:inline-block;animation:mq 28s linear infinite}
+@keyframes mq{to{transform:translateX(-50%)}}
+.tools span{margin:0 22px}
+
+/* =====================================================
+   ৪. সাধারণ সেকশন ও শিরোনাম
+   ===================================================== */
+section{padding:64px 0}
+h2{font-size:clamp(25px,3.6vw,34px);color:var(--navy);margin-bottom:6px}
+.sub{color:var(--mute);margin-bottom:30px;max-width:36em}
+
+/* ছবির বক্স: ছবি না থাকলে রঙিন বৃত্তে আদ্যক্ষর দেখায় */
+.ph{position:relative;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--navy));color:#fff;font-weight:700;overflow:hidden}
+.ph::before{content:attr(data-i);font-size:42px}
+.ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+
+/* =====================================================
+   ৫. প্রতিষ্ঠাতা সেকশন
+   ===================================================== */
+.founder{background:var(--soft)}
+.fgrid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
+.fph{aspect-ratio:4/5;border-radius:200px 200px 18px 18px;box-shadow:16px 16px 0 var(--sun)}
+.fph::before{font-size:72px}
+.fname{font-size:clamp(24px,3.4vw,34px);color:var(--navy);font-weight:700;line-height:1.3}
+.role{color:var(--blue);font-weight:600;margin-bottom:10px}
+.quote{border-left:4px solid var(--sun);padding:4px 0 4px 16px;margin-top:16px;color:var(--mute)}
+
+/* =====================================================
+   ৬. কোর্সের কার্ড
+   ===================================================== */
+.courses{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:18px}
+.c{border:1px solid var(--line);border-radius:14px;padding:20px;transition:transform .25s,box-shadow .25s;background:#fff}
+.c:hover{transform:translateY(-6px);box-shadow:0 14px 28px #0b1f5c1f}
+.c i{display:grid;place-items:center;width:52px;height:52px;border-radius:12px;color:#fff;font:700 18px/1 monospace;margin-bottom:12px;background:var(--b)}
+.c h3{color:var(--navy);font-size:19px}
+.c p{color:var(--mute);font-size:16px;margin:4px 0 10px}
+.c span{font-weight:600;color:var(--blue);font-size:15px}
+
+/* =====================================================
+   ৭. প্রশিক্ষকদের কার্ড
+   ===================================================== */
+.team{background:var(--soft)}
+.tg{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:22px}
+.tr{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 6px 18px #0b1f5c14;transition:transform .25s}
+.tr:hover{transform:translateY(-6px)}
+.tr .ph{aspect-ratio:1}
+.tr div.t{padding:16px 18px 20px}
+.tr h3{color:var(--navy);font-size:20px}
+.tr .role{font-size:15px;margin:0 0 8px}
+.tr small{display:block;color:var(--mute);font-size:15px;line-height:1.5}
+.tr small b{color:var(--navy)}
+
+/* =====================================================
+   ৮. শেখার চার ধাপ
+   ===================================================== */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;counter-reset:s;position:relative}
+.step{padding:0 14px;text-align:center;position:relative}
+.step::before{counter-increment:s;content:counter(s,bengali);display:grid;place-items:center;width:54px;height:54px;margin:0 auto 12px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;font-size:22px;position:relative;z-index:1}
+.step::after{content:"";position:absolute;top:27px;left:50%;width:100%;height:3px;background:var(--line)}
+.step:last-child::after{display:none}
+.step h3{color:var(--navy)}
+.step p{color:var(--mute);font-size:16px}
+
+/* =====================================================
+   ৯. যোগাযোগ, ফুটার ও হোয়াটসঅ্যাপ বাটন
+   ===================================================== */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+dl{display:grid;grid-template-columns:auto 1fr;gap:10px 18px}
+dt{font-weight:600;color:var(--navy)}
+dd a{color:var(--blue)}
+.note{background:var(--soft);border-left:4px solid var(--sun);padding:18px;border-radius:0 12px 12px 0}
+.note h3{color:var(--navy)}
+footer{background:var(--navy);color:#c9d6ff;text-align:center;padding:22px;font-size:15px}
+#wa{position:fixed;right:16px;bottom:16px;z-index:10;background:#25d366;color:#fff;text-decoration:none;font-weight:700;padding:12px 18px;border-radius:30px;box-shadow:0 6px 16px #0003}
+
+/* স্ক্রল করলে ধীরে ধীরে ভেসে আসার অ্যানিমেশন */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s,transform .7s}
+.rv.on{opacity:1;transform:none}
+
+/* =====================================================
+   ১০. মোবাইলের জন্য (ছোট স্ক্রিনে সাজানো)
+   ===================================================== */
+@media(max-width:760px){
+  #mb{display:block}
+  nav{display:none;position:absolute;top:100%;left:0;right:0;background:#fff;padding:10px 20px;border-bottom:1px solid var(--line)}
+  nav.open{display:block}
+  nav a{display:block;margin:0;padding:10px 0}
+  .hero .wrap,.fgrid,.contact{grid-template-columns:1fr}
+  .logo{order:-1;width:160px}
+  .fph{max-width:280px;margin:0 auto 10px}
+  .steps{grid-template-columns:1fr 1fr;row-gap:24px}
+  .step::after{display:none}
+}
+/* যাদের ফোনে অ্যানিমেশন বন্ধ করা, তাদের জন্য */
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+
+<body>
+<div id="bar"></div>
+
+<!-- =====================================================
+     হেডার ও মেনু
+     ===================================================== -->
+<header><div class="nav">
+  <!-- লোগো: logo.png ফাইলটি এই কোডের পাশেই রাখুন -->
+  <a class="brand" href="#top"><img src="logo.png" alt="APU IT Academy লোগো">APU <b>IT Academy</b></a>
+  <button id="mb" aria-label="মেনু">মেনু</button>
+  <nav id="nv">
+    <a href="#founder">প্রতিষ্ঠাতা</a>
+    <a href="#courses">কোর্স</a>
+    <a href="#team">প্রশিক্ষক</a>
+    <a href="#path">শেখার পথ</a>
+    <a href="#contact">যোগাযোগ</a>
+  </nav>
+</div></header>
+
+<!-- =====================================================
+     হিরো (উপরের বড় অংশ)
+     ===================================================== -->
+<div class="hero" id="top">
+  <!-- ভাসমান ছোট বর্গ (সাজসজ্জা, বদলানোর দরকার নেই) -->
+  <i class="px" style="--s:26px;--c:#1565e8;--x:6%;--y:18%;--d:0s"></i>
+  <i class="px" style="--s:14px;--c:#ffb703;--x:14%;--y:62%;--d:1s"></i>
+  <i class="px" style="--s:34px;--c:#fff;--x:48%;--y:10%;--d:2s"></i>
+  <i class="px" style="--s:18px;--c:#1565e8;--x:60%;--y:72%;--d:3s"></i>
+  <i class="px" style="--s:12px;--c:#ffb703;--x:92%;--y:20%;--d:1.5s"></i>
+
+  <div class="wrap">
+    <div>
+      <!-- "ওয়েব ডেভেলপার" টাইপ হয়ে বদলায়। শব্দগুলো একদম নিচের <script>-এ আছে -->
+      <h1>রংপুরে শিখে আপনি হবেন একজন <span class="typed" id="ty">ওয়েব ডেভেলপার</span></h1>
+
+      <!-- ★ বদলান: হিরোর ছোট বর্ণনা -->
+      <p>হাতে-কলমে আইটি প্রশিক্ষণ। বাস্তব প্রজেক্টে কাজ করে দক্ষতা অর্জন করুন, যাতে কোর্স শেষে নিজের কাজ নিজেই দেখাতে পারেন।</p>
+
+      <a class="btn main" href="#contact">ভর্তির তথ্য জানুন</a>
+      <!-- ★ বদলান: আপনার ফেসবুক পেজের লিংক -->
+      <a class="btn line" href="https://www.facebook.com/apuitacademy" target="_blank" rel="noopener">ফেসবুক পেজ দেখুন</a>
+    </div>
+    <div class="logo"><img src="logo.png" alt="APU IT Academy"></div>
+  </div>
+
+  <!-- নিচের ঢেউ -->
+  <svg class="wave" viewBox="0 0 1440 70" preserveAspectRatio="none" aria-hidden="true"><path d="M0 70V30C240 0 480 0 720 25s480 40 720 5v40z" fill="#0b1f5c"/></svg>
+</div>
+
+<!-- চলমান টুলসের ফিতা (★ বদলান: <span> এর ভেতরের নাম বদলাতে পারেন; দুইবার লেখা আছে যাতে ফিতা ফাঁকা না দেখায়) -->
+<div class="tools" aria-hidden="true"><div>
+  <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Photoshop</span><span>Illustrator</span><span>WordPress</span><span>SEO</span><span>Excel</span><span>Freelancing</span>
+  <span>HTML</span><span>CSS</span><span>JavaScript</span><span>Photoshop</span><span>Illustrator</span><span>WordPress</span><span>SEO</span><span>Excel</span><span>Freelancing</span>
+</div></div>
+
+<!-- =====================================================
+     প্রতিষ্ঠাতা সেকশন
+     ===================================================== -->
+<section class="founder" id="founder"><div class="wrap fgrid">
+
+  <!--
+    ★ প্রতিষ্ঠাতার ছবি: apu.jpg নামে ছবিটি এই কোডের (index.html) পাশে রাখুন।
+    ছবি না থাকলে data-i="AG" এর আদ্যক্ষর রঙিন বৃত্তে দেখাবে।
+    ছবির নাম অন্য হলে src="..." এর ভেতরের নাম বদলে দিন।
+  -->
+  <div class="ph fph rv" data-i="APU GOSWAMI">
+    <img src="apu.jpg" alt="ENGR. APU GOSWAMI" onerror="this.remove()">
+  </div>
+
+  <div class="rv">
+    <h2>প্রতিষ্ঠাতা</h2>
+    <div class="fname">ENGR. APU GOSWAMI</div>
+    <div class="role">প্রতিষ্ঠাতা, APU IT Academy</div>
+    <!-- ★ বদলান: নিজের শিক্ষাগত যোগ্যতা -->
+    <p><b>শিক্ষাগত যোগ্যতা:</b> [আপনার শিক্ষাগত যোগ্যতা লিখুন]</p>
+    <!-- ★ বদলান: প্রতিষ্ঠাতার বার্তা -->
+    <p class="quote">[প্রতিষ্ঠাতার বার্তা এখানে লিখুন: কেন এই একাডেমি শুরু করেছেন এবং শিক্ষার্থীদের জন্য আপনার স্বপ্ন কী।]</p>
+  </div>
+</div></section>
+
+<!-- =====================================================
+     কোর্সসমূহ
+     নতুন কোর্স যোগ করতে: নিচের যেকোনো একটি <div class="c rv">...</div> কপি করে
+     এর ঠিক নিচে পেস্ট করুন এবং লেখা বদলান।
+     --b:#... হলো ছোট বক্সটির রং।
+     ===================================================== -->
+<section id="courses"><div class="wrap">
+  <h2 class="rv">আমাদের কোর্সসমূহ</h2>
+  <p class="sub rv">প্রতিটি কোর্সে থিওরির সাথে ল্যাবে সরাসরি অনুশীলন ও প্রজেক্ট থাকে।</p>
+
+  <div class="courses">
+    <!-- কোর্স ১ -->
+    <div class="c rv">
+      <i style="--b:#1565e8">&lt;/&gt;</i>
+      <h3>ওয়েব ডেভেলপমেন্ট</h3>
+      <p>HTML, CSS, JavaScript শিখে নিজের ওয়েবসাইট তৈরি।</p>
+      <span>মেয়াদ জানতে যোগাযোগ করুন</span>  <!-- ★ বদলান: যেমন "৩ মাস" -->
+    </div>
+
+    <!-- কোর্স ২ -->
+    <div class="c rv">
+      <i style="--b:#7c3aed">Ps</i>
+      <h3>গ্রাফিক ডিজাইন</h3>
+      <p>Photoshop ও Illustrator দিয়ে লোগো, পোস্টার ও সোশ্যাল মিডিয়া ডিজাইন।</p>
+      <span>মেয়াদ জানতে যোগাযোগ করুন</span>
+    </div>
+
+    <!-- কোর্স ৩ -->
+    <div class="c rv">
+      <i style="--b:#e11d48">SEO</i>
+      <h3>ডিজিটাল মার্কেটিং</h3>
+      <p>ফেসবুক ও গুগল বিজ্ঞাপন, SEO এবং কনটেন্ট পরিকল্পনা।</p>
+      <span>মেয়াদ জানতে যোগাযোগ করুন</span>
+    </div>
+
+    <!-- কোর্স ৪ -->
+    <div class="c rv">
+      <i style="--b:#059669">Xl</i>
+      <h3>বেসিক কম্পিউটার ও অফিস</h3>
+      <p>MS Word, Excel, PowerPoint ও ইন্টারনেটের নিরাপদ ব্যবহার।</p>
+      <span>মেয়াদ জানতে যোগাযোগ করুন</span>
+    </div>
+
+    <!-- কোর্স ৫ -->
+    <div class="c rv">
+      <i style="--b:#d97706">$</i>
+      <h3>ফ্রিল্যান্সিং</h3>
+      <p>মার্কেটপ্লেসে প্রোফাইল তৈরি, কাজ পাওয়া ও ক্লায়েন্টের সাথে যোগাযোগ।</p>
+      <span>মেয়াদ জানতে যোগাযোগ করুন</span>
+    </div>
+  </div>
+</div></section>
+
+<!-- =====================================================
+     প্রশিক্ষকগণ
+     নতুন প্রশিক্ষক যোগ করতে: নিচের একটি <article>...</article> পুরোটা কপি করে
+     শেষ <article> এর নিচে পেস্ট করুন। তারপর data-i, ছবির নাম, নাম, পদবি ও যোগ্যতা বদলান।
+     ছবির নাম: trainer1.jpg, trainer2.jpg, trainer3.jpg ... (ছবি এই কোডের পাশে রাখুন)
+     ===================================================== -->
+<section class="team" id="team"><div class="wrap">
+  <h2 class="rv">আমাদের প্রশিক্ষকগণ</h2>
+  <p class="sub rv">অভিজ্ঞ প্রশিক্ষকদের কাছ থেকে শিখুন।</p>
+
+  <div class="tg">
+
+    <!-- প্রশিক্ষক ১ -->
+    <article class="tr rv">
+      <div class="ph" data-i="১"><img src="trainer1.jpg" alt="প্রশিক্ষক ১" onerror="this.remove()"></div>
+      <div class="t">
+        <h3>[প্রশিক্ষকের নাম]</h3>                                         <!-- ★ নাম -->
+        <div class="role">[পদবি, যেমন: ওয়েব ডেভেলপমেন্ট ইনস্ট্রাক্টর]</div>  <!-- ★ পদবি -->
+        <small><b>শিক্ষাগত যোগ্যতা:</b> [ডিগ্রি, প্রতিষ্ঠান]</small>      <!-- ★ যোগ্যতা -->
+      </div>
+    </article>
+
+    <!-- প্রশিক্ষক ২ -->
+    <article class="tr rv">
+      <div class="ph" data-i="২"><img src="trainer2.jpg" alt="প্রশিক্ষক ২" onerror="this.remove()"></div>
+      <div class="t">
+        <h3>[প্রশিক্ষকের নাম]</h3>
+        <div class="role">[পদবি]</div>
+        <small><b>শিক্ষাগত যোগ্যতা:</b> [ডিগ্রি, প্রতিষ্ঠান]</small>
+      </div>
+    </article>
+
+    <!-- প্রশিক্ষক ৩ -->
+    <article class="tr rv">
+      <div class="ph" data-i="৩"><img src="trainer3.jpg" alt="প্রশিক্ষক ৩" onerror="this.remove()"></div>
+      <div class="t">
+        <h3>[প্রশিক্ষকের নাম]</h3>
+        <div class="role">[পদবি]</div>
+        <small><b>শিক্ষাগত যোগ্যতা:</b> [ডিগ্রি, প্রতিষ্ঠান]</small>
+      </div>
+    </article>
+
+  </div>
+</div></section>
+
+<!-- =====================================================
+     শেখার চার ধাপ
+     ===================================================== -->
+<section id="path"><div class="wrap">
+  <h2 class="rv">শেখার চার ধাপ</h2>
+  <p class="sub rv">প্রতিটি কোর্স এই ক্রমে এগোয়।</p>
+  <div class="steps">
+    <div class="step rv"><h3>শিখুন</h3><p>অভিজ্ঞ প্রশিক্ষকের কাছে ধাপে ধাপে মূল বিষয় শিখুন।</p></div>
+    <div class="step rv"><h3>অনুশীলন</h3><p>ল্যাবে নিজের হাতে কাজ করে শেখা বিষয় ঝালিয়ে নিন।</p></div>
+    <div class="step rv"><h3>অন্বেষণ</h3><p>নতুন টুল ও নিজের আইডিয়া নিয়ে পরীক্ষা করুন।</p></div>
+    <div class="step rv"><h3>গড়ুন</h3><p>কোর্স শেষে নিজের প্রজেক্ট ও সনদ নিয়ে বের হোন।</p></div>
+  </div>
+</div></section>
+
+<!-- =====================================================
+     যোগাযোগ ও ভর্তি
+     ===================================================== -->
+<section id="contact" style="background:var(--soft)"><div class="wrap contact">
+  <div class="rv">
+    <h2>যোগাযোগ ও ভর্তি</h2>
+    <p class="sub">ডেমো ক্লাসে এসে নিজে দেখে সিদ্ধান্ত নিন।</p>
+    <dl>
+      <dt>ঠিকানা</dt>
+      <dd>হরকলি ঠাকুরপাড়া, পাগলাপীর, সদর, রংপুর
+          <a href="https://www.google.com/maps/search/?api=1&query=Harkoli+Thakurpara+Paglapir+Rangpur" target="_blank" rel="noopener">(ম্যাপে দেখুন)</a></dd>
+
+      <!-- ★ ফোন: tel:+88 এর পরে নম্বর (প্রথমের ০ ছাড়া, হাইফেন ছাড়া) -->
+      <dt>ফোন</dt>
+      <dd><a href="tel:+8801709103305">০১৭০৯-১০৩৩০৫</a></dd>
+
+      <!-- ★ হোয়াটসঅ্যাপ: wa.me/88 এর পরে একই নম্বর -->
+      <dt>হোয়াটসঅ্যাপ</dt>
+      <dd><a href="https://wa.me/8801709103305" target="_blank" rel="noopener">মেসেজ পাঠান</a></dd>
+
+      <dt>ফেসবুক</dt>
+      <dd><a href="https://www.facebook.com/apuitacademy" target="_blank" rel="noopener">APU IT ACADEMY</a></dd>
+
+      <dt>অফিস সময়</dt>
+      <dd>সকাল ৯:০০ – বিকেল ৫:০০</dd>
+    </dl>
+  </div>
+
+  <div class="note rv">
+    <h3>ভর্তির জন্য যা লাগবে</h3>
+    <p>NID বা জন্মনিবন্ধনের কপি, সর্বশেষ শিক্ষাগত সনদের কপি ও ২ কপি পাসপোর্ট সাইজ ছবি। ভর্তি ফরম অফিস থেকে নিতে পারবেন।</p>
+  </div>
+</div></section>
+
+<footer>© APU IT Academy, রংপুর। Learn IT. Build your future.</footer>
+
+<!-- ডান নিচের ভাসমান হোয়াটসঅ্যাপ বাটন (★ নম্বর একই রাখুন) -->
+<a id="wa" href="https://wa.me/8801709103305" target="_blank" rel="noopener">হোয়াটসঅ্যাপে কথা বলুন</a>
+
+<script>
+/* ১. হিরোর টাইপ হওয়া শব্দ।
+      ★ বদলান: নিচের কোটেশনের (" ") ভেতরের শব্দ বদলাতে বা যোগ করতে পারেন, প্রতিটির পরে কমা (,) দিন। */
+var w = ["ওয়েব ডেভেলপার", "গ্রাফিক ডিজাইনার", "ডিজিটাল মার্কেটার", "ফ্রিল্যান্সার"];
+var i = 0, j = 0, del = false, t = document.getElementById("ty");
+function tick() {
+  var s = w[i];
+  j += del ? -1 : 1;
+  t.textContent = s.slice(0, j) || "\u00a0";
+  if (!del && j == s.length) { del = true; return setTimeout(tick, 1500); }
+  if (del && j == 0) { del = false; i = (i + 1) % w.length; }
+  setTimeout(tick, del ? 45 : 90);
+}
+if (!matchMedia("(prefers-reduced-motion:reduce)").matches) tick();
+
+/* ২. স্ক্রল করলে লেখা ও কার্ড ধীরে ধীরে ভেসে আসা (বদলানোর দরকার নেই) */
+var io = new IntersectionObserver(function (e) {
+  e.forEach(function (x) {
+    if (x.isIntersecting) { x.target.classList.add("on"); io.unobserve(x.target); }
+  });
+}, { threshold: .15 });
+document.querySelectorAll(".rv").forEach(function (e, k) {
+  e.style.transitionDelay = (k % 4) * 90 + "ms";
+  io.observe(e);
+});
+
+/* ৩. উপরের হলুদ স্ক্রল লাইন */
+onscroll = function () {
+  var h = document.documentElement;
+  document.getElementById("bar").style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + "%";
+};
+
+/* ৪. মোবাইলের মেনু খোলা-বন্ধ */
+var nv = document.getElementById("nv");
+document.getElementById("mb").onclick = function () { nv.classList.toggle("open"); };
+nv.onclick = function () { nv.classList.remove("open"); };
+</script>
+</body>
+</html>
