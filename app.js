@@ -54,6 +54,12 @@ var tl = TOOLS.concat(TOOLS).map(function (t) { return "<span>" + t + "</span>";
 $("#tools").innerHTML = tl;
 $("#feat").innerHTML = FEATURES.map(function (f) { return '<div class="f rv"><i>' + f.i + '</i><h3>' + f.t + '</h3><p>' + f.d + '</p></div>'; }).join("");
 
+/* ---------- ক্লাসের ধরন ---------- */
+$("#modes-list").innerHTML = MODES.map(function (m, k) {
+  return '<div class="mc rv' + (k ? ' alt' : '') + '"><i>' + m.i + '</i><small>' + m.tag + '</small><h3>' + m.t + '</h3><p>' + m.d + '</p><ul>' +
+    m.pts.map(function (x) { return "<li>" + x + "</li>"; }).join("") + '</ul></div>';
+}).join("");
+
 /* ---------- কোর্স ---------- */
 $("#courses-list").innerHTML = COURSES.map(function (c) {
   return '<div class="c rv"><i style="--b:' + c.c + '">' + c.ic.replace("<", "&lt;").replace(">", "&gt;") + '</i><h3>' + c.n + '</h3><p>' + c.d + '</p><span>' + c.dur + '</span><button onclick="apply(this.dataset.n)" data-n="' + c.n + '">ভর্তি হতে চাই</button></div>';
@@ -98,7 +104,7 @@ $("#mapf").src = APU.mapEmbed; $("#slogan").textContent = APU.slogan;
 $("#send").onclick = function () {
   var n = $("#fn").value.trim(), p = $("#fp").value.trim();
   if (!n || !p) { alert("অনুগ্রহ করে নাম ও মোবাইল নম্বর দিন"); return; }
-  var m = "ভর্তির আবেদন\nনাম: " + n + "\nমোবাইল: " + p + "\nকোর্স: " + $("#fc").value + "\nবার্তা: " + $("#fm").value;
+  var m = "ভর্তির আবেদন\nনাম: " + n + "\nমোবাইল: " + p + "\nকোর্স: " + $("#fc").value + "\nক্লাসের ধরন: " + $("#fk").value + "\nবার্তা: " + $("#fm").value;
   window.open(WA + "?text=" + encodeURIComponent(m), "_blank");
 };
 

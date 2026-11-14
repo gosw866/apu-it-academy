@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- ★ বদলান: ট্যাবের নাম ও গুগলে যে বর্ণনা দেখাবে -->
-<title>APU IT Academy | রংপুরে আইটি প্রশিক্ষণ</title>
-<meta name="description" content="APU IT Academy, রংপুর। ওয়েব ডেভেলপমেন্ট, গ্রাফিক ডিজাইন, ডিজিটাল মার্কেটিং, বেসিক কম্পিউটার ও ফ্রিল্যান্সিং কোর্সে হাতে-কলমে প্রশিক্ষণ।">
+<title>APU IT Academy | রংপুরে আইটি প্রশিক্ষণ, অনলাইন ও অফলাইন</title>
+<meta name="description" content="APU IT Academy, রংপুর। ওয়েব ডেভেলপমেন্ট, গ্রাফিক ডিজাইন, ডিজিটাল মার্কেটিং, বেসিক কম্পিউটার ও ফ্রিল্যান্সিং কোর্সে হাতে-কলমে প্রশিক্ষণ। রংপুরে অফলাইন এবং সারা বাংলাদেশে অনলাইন ক্লাস।">
 <meta name="theme-color" content="#0b1f5c">
 
 <!-- ফেসবুক/হোয়াটসঅ্যাপে লিংক শেয়ার করলে যা দেখাবে -->
@@ -43,9 +43,9 @@
   <i class="px" style="--s:26px;--c:#1565e8;--x:6%;--y:18%;--d:0s"></i><i class="px" style="--s:14px;--c:#ffb703;--x:14%;--y:62%;--d:1s"></i><i class="px" style="--s:34px;--c:#fff;--x:46%;--y:8%;--d:2s"></i><i class="px" style="--s:18px;--c:#1565e8;--x:58%;--y:74%;--d:3s"></i><i class="px" style="--s:12px;--c:#ffb703;--x:92%;--y:20%;--d:1.5s"></i>
   <div class="wrap">
     <div>
-      <span class="tag">রংপুরের আইটি প্রশিক্ষণ কেন্দ্র</span>
-      <h1>রংপুরে শিখে আপনি হবেন একজন <span class="typed" id="ty">ওয়েব ডেভেলপার</span></h1>
-      <p class="lead">হাতে-কলমে আইটি প্রশিক্ষণ। বাস্তব প্রজেক্টে কাজ করে দক্ষতা অর্জন করুন, যাতে কোর্স শেষে নিজের কাজ নিজেই দেখাতে পারেন।</p>
+      <span class="tag" data-s="hero.tag">রংপুরের আইটি প্রশিক্ষণ কেন্দ্র</span>
+      <h1><span data-s="hero.title">আইটি শিখে আপনি হবেন একজন</span> <span class="typed" id="ty">ওয়েব ডেভেলপার</span></h1>
+      <p class="lead" data-s="hero.lead">হাতে-কলমে আইটি প্রশিক্ষণ। বাস্তব প্রজেক্টে কাজ করে দক্ষতা অর্জন করুন, যাতে কোর্স শেষে নিজের কাজ নিজেই দেখাতে পারেন।</p>
       <div class="badges" id="badges"></div>
       <a class="btn main" href="#join">ভর্তির আবেদন করুন</a>
       <a class="btn fb" id="heroFb" target="_blank" rel="noopener"></a>
@@ -71,8 +71,16 @@
   <div class="feat" id="feat"></div>
 </div></section>
 
+<!-- ============ ক্লাসের ধরন: অফলাইন ও অনলাইন (data.js → MODES) ============ -->
+<section class="soft" id="modes"><div class="wrap">
+  <span class="tag rv" data-s="modes.tag">ক্লাসের ধরন</span>
+  <h2 class="rv" data-s="modes.title">অফলাইন ও অনলাইন, দুইভাবেই শিখুন</h2>
+  <p class="sub rv" data-s="modes.sub"></p>
+  <div class="mg" id="modes-list"></div>
+</div></section>
+
 <!-- ============ কোর্স ============ -->
-<section class="soft" id="courses"><div class="wrap">
+<section id="courses"><div class="wrap">
   <span class="tag rv" data-s="courses.tag">কোর্সসমূহ</span>
   <h2 class="rv" data-s="courses.title">আপনার পছন্দের দক্ষতা বেছে নিন</h2>
   <p class="sub rv" data-s="courses.sub"></p>
@@ -143,6 +151,7 @@
     <label for="fn">আপনার নাম</label><input id="fn" placeholder="পূর্ণ নাম">
     <label for="fp">মোবাইল নম্বর</label><input id="fp" type="tel" placeholder="০১XXXXXXXXX">
     <label for="fc">কোন কোর্সে ভর্তি হতে চান?</label><select id="fc"></select>
+    <label for="fk">ক্লাসের ধরন</label><select id="fk"><option>অনলাইন (সারা বাংলাদেশ)</option><option>অফলাইন (রংপুরে)</option></select>
     <label for="fm">বার্তা (ঐচ্ছিক)</label><textarea id="fm" rows="3"></textarea>
     <button class="btn green" id="send">হোয়াটসঅ্যাপে পাঠান</button>
   </div>
