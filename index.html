@@ -16,18 +16,24 @@
 <meta property="og:type" content="website">
 
 <link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div id="bar"></div>
+
+<!-- ============ উপরের যোগাযোগ ও ফেসবুক পট্টি ============ -->
+<div id="topbar"><div class="tb"></div></div>
 <div id="notice" hidden></div>
 
 <!-- ============ মেনু ============ -->
 <header><div class="nav">
-  <a class="brand" href="#top"><img src="logo.png" alt="APU IT Academy লোগো">APU <b>IT Academy</b></a>
+  <a class="brand" href="#top"><img src="logo.png" data-logo alt="APU IT Academy লোগো">APU <b>IT Academy</b></a>
   <button id="mb" aria-label="মেনু">মেনু</button>
   <nav id="nv">
     <a href="#why">কেন APU</a><a href="#courses">কোর্স</a><a href="#founder">প্রতিষ্ঠাতা</a><a href="#team">প্রশিক্ষক</a><a href="#contact">যোগাযোগ</a>
+    <a class="fbnav" id="fbnav" target="_blank" rel="noopener"></a>
     <a class="cta" href="#join">ভর্তি হোন</a>
   </nav>
 </div></header>
@@ -40,11 +46,13 @@
       <span class="tag">রংপুরের আইটি প্রশিক্ষণ কেন্দ্র</span>
       <h1>রংপুরে শিখে আপনি হবেন একজন <span class="typed" id="ty">ওয়েব ডেভেলপার</span></h1>
       <p class="lead">হাতে-কলমে আইটি প্রশিক্ষণ। বাস্তব প্রজেক্টে কাজ করে দক্ষতা অর্জন করুন, যাতে কোর্স শেষে নিজের কাজ নিজেই দেখাতে পারেন।</p>
+      <div class="badges" id="badges"></div>
       <a class="btn main" href="#join">ভর্তির আবেদন করুন</a>
+      <a class="btn fb" id="heroFb" target="_blank" rel="noopener"></a>
       <button class="btn line" id="askAi">🤖 AI সহায়ককে প্রশ্ন করুন</button>
     </div>
     <div class="vis">
-      <div class="logo"><img src="logo.png" alt="APU IT Academy"></div>
+      <div class="logo"><img src="logo.png" data-logo alt="APU IT Academy"></div>
       <div class="orbit"><span>&lt;/&gt; Web</span><span>Ps Design</span><span>SEO</span><span>$ Freelance</span></div>
     </div>
   </div>
@@ -52,49 +60,86 @@
 </div>
 <div class="tools" aria-hidden="true"><div id="tools"></div></div>
 
+<!-- ============ সংখ্যার ফিতা ============ -->
+<div class="stats" id="statsWrap" hidden><div class="wrap sg" id="stats"></div></div>
+
 <!-- ============ কেন APU ============ -->
 <section id="why"><div class="wrap">
-  <span class="tag rv">আমাদের বৈশিষ্ট্য</span>
-  <h2 class="rv">কেন APU IT Academy?</h2>
-  <p class="sub rv">শেখার পাশাপাশি নিজের কাজ দেখানোর মতো দক্ষতা তৈরি করাই আমাদের লক্ষ্য।</p>
+  <span class="tag rv" data-s="why.tag">আমাদের বৈশিষ্ট্য</span>
+  <h2 class="rv" data-s="why.title">কেন APU IT Academy?</h2>
+  <p class="sub rv" data-s="why.sub"></p>
   <div class="feat" id="feat"></div>
 </div></section>
 
 <!-- ============ কোর্স ============ -->
 <section class="soft" id="courses"><div class="wrap">
-  <span class="tag rv">কোর্সসমূহ</span>
-  <h2 class="rv">আপনার পছন্দের দক্ষতা বেছে নিন</h2>
-  <p class="sub rv">প্রতিটি কোর্সে থিওরির সাথে ল্যাবে সরাসরি অনুশীলন ও প্রজেক্ট থাকে।</p>
+  <span class="tag rv" data-s="courses.tag">কোর্সসমূহ</span>
+  <h2 class="rv" data-s="courses.title">আপনার পছন্দের দক্ষতা বেছে নিন</h2>
+  <p class="sub rv" data-s="courses.sub"></p>
   <div class="courses" id="courses-list"></div>
 </div></section>
 
-<!-- ============ প্রতিষ্ঠাতা ============ -->
-<section id="founder"><div class="wrap fg">
-  <div class="ph fph rv" id="f-ph"></div>
-  <div class="rv" id="f-info"></div>
+<!-- ============ প্রতিষ্ঠাতা (হেডলাইন: data.js → SECTIONS.founder) ============ -->
+<section id="founder"><div class="wrap">
+  <span class="tag rv" data-s="founder.tag">প্রতিষ্ঠাতা</span>
+  <h2 class="rv" data-s="founder.title">প্রতিষ্ঠাতার কথা</h2>
+  <p class="sub rv" data-s="founder.sub" hidden></p>
+  <div class="fg">
+    <div class="ph fph rv" id="f-ph"></div>
+    <div class="rv" id="f-info"></div>
+  </div>
 </div></section>
 
-<!-- ============ প্রশিক্ষকগণ ============ -->
+<!-- ============ প্রশিক্ষকগণ (হেডলাইন: data.js → SECTIONS.team) ============ -->
 <section class="soft" id="team"><div class="wrap">
-  <span class="tag rv">আমাদের দল</span>
-  <h2 class="rv">অভিজ্ঞ প্রশিক্ষকগণ</h2>
-  <p class="sub rv">যাঁদের কাছ থেকে আপনি শিখবেন।</p>
+  <span class="tag rv" data-s="team.tag">আমাদের দল</span>
+  <h2 class="rv" data-s="team.title">অভিজ্ঞ প্রশিক্ষকগণ</h2>
+  <p class="sub rv" data-s="team.sub"></p>
   <div class="tg" id="team-list"></div>
 </div></section>
 
 <!-- ============ শেখার ধাপ ============ -->
 <section><div class="wrap">
-  <span class="tag rv">শেখার পথ</span>
-  <h2 class="rv">চার ধাপে সফলতা</h2>
-  <p class="sub rv">প্রতিটি কোর্স এই ক্রমে এগোয়।</p>
+  <span class="tag rv" data-s="steps.tag">শেখার পথ</span>
+  <h2 class="rv" data-s="steps.title">চার ধাপে সফলতা</h2>
+  <p class="sub rv" data-s="steps.sub"></p>
   <div class="steps" id="steps"></div>
+</div></section>
+
+<!-- ============ শিক্ষার্থীদের মতামত (data.js → TESTIMONIALS; ফাঁকা থাকলে দেখাবে না) ============ -->
+<section id="reviews" hidden><div class="wrap">
+  <span class="tag rv" data-s="reviews.tag">মতামত</span>
+  <h2 class="rv" data-s="reviews.title">শিক্ষার্থীরা যা বলছেন</h2>
+  <p class="sub rv" data-s="reviews.sub"></p>
+  <div class="rvg" id="reviews-list"></div>
+</div></section>
+
+<!-- ============ গ্যালারি (data.js → GALLERY; ফাঁকা থাকলে দেখাবে না) ============ -->
+<section class="soft" id="gallery" hidden><div class="wrap">
+  <span class="tag rv" data-s="gallery.tag">গ্যালারি</span>
+  <h2 class="rv" data-s="gallery.title">আমাদের ক্লাস ও ল্যাব</h2>
+  <p class="sub rv" data-s="gallery.sub"></p>
+  <div class="gal" id="gallery-list"></div>
+</div></section>
+
+<!-- ============ ফেসবুক ============ -->
+<section class="fbsec" id="social"><div class="wrap fbg">
+  <div class="rv">
+    <span class="tag" data-s="social.tag">ফেসবুক</span>
+    <h2 data-s="social.title">ফেসবুকে আমাদের সাথে থাকুন</h2>
+    <p class="sub" data-s="social.sub"></p>
+    <ul class="fbl"><li>নতুন ব্যাচ ও ভর্তির নোটিশ</li><li>ক্লাস ও ল্যাবের ছবি</li><li>শিক্ষার্থীদের কাজ ও সাফল্য</li></ul>
+    <a class="btn fb big" id="socialFb" target="_blank" rel="noopener"></a>
+    <a class="btn line dark" id="socialMsg" target="_blank" rel="noopener">💬 মেসেঞ্জারে মেসেজ দিন</a>
+  </div>
+  <div class="rv fbframe"><iframe id="fbf" title="APU IT Academy ফেসবুক পেজ" loading="lazy" allow="encrypted-media"></iframe></div>
 </div></section>
 
 <!-- ============ ভর্তি ও জিজ্ঞাসা ============ -->
 <section class="soft" id="join"><div class="wrap jg">
   <div class="box rv">
-    <h2 style="font-size:26px">ভর্তির আবেদন</h2>
-    <p class="sub" style="margin-bottom:14px">ফরম পূরণ করে পাঠালে হোয়াটসঅ্যাপে আমাদের কাছে মেসেজ চলে যাবে।</p>
+    <h2 style="font-size:26px" data-s="join.title">ভর্তির আবেদন</h2>
+    <p class="sub" style="margin-bottom:14px" data-s="join.sub"></p>
     <label for="fn">আপনার নাম</label><input id="fn" placeholder="পূর্ণ নাম">
     <label for="fp">মোবাইল নম্বর</label><input id="fp" type="tel" placeholder="০১XXXXXXXXX">
     <label for="fc">কোন কোর্সে ভর্তি হতে চান?</label><select id="fc"></select>
@@ -102,7 +147,7 @@
     <button class="btn green" id="send">হোয়াটসঅ্যাপে পাঠান</button>
   </div>
   <div class="rv">
-    <h2 style="font-size:26px">সাধারণ জিজ্ঞাসা</h2>
+    <h2 style="font-size:26px" data-s="faq.title">সাধারণ জিজ্ঞাসা</h2>
     <div id="faq" style="margin-top:10px"></div>
   </div>
 </div></section>
@@ -110,31 +155,44 @@
 <!-- ============ যোগাযোগ ============ -->
 <section id="contact"><div class="wrap cg">
   <div class="rv">
-    <span class="tag">যোগাযোগ</span>
-    <h2>আমাদের সাথে যোগাযোগ করুন</h2>
-    <p class="sub">ডেমো ক্লাসে এসে নিজে দেখে সিদ্ধান্ত নিন।</p>
+    <span class="tag" data-s="contact.tag">যোগাযোগ</span>
+    <h2 data-s="contact.title">আমাদের সাথে যোগাযোগ করুন</h2>
+    <p class="sub" data-s="contact.sub"></p>
     <dl id="info"></dl>
     <a class="btn blue" id="mapbtn" target="_blank" rel="noopener">📍 ম্যাপে দেখুন</a>
     <a class="btn green" id="wabtn" target="_blank" rel="noopener">💬 হোয়াটসঅ্যাপ</a>
+    <a class="btn fb" id="contactFb" target="_blank" rel="noopener"></a>
   </div>
   <div class="rv"><iframe class="map" id="mapf" title="APU IT Academy-র অবস্থান" loading="lazy"></iframe></div>
 </div></section>
 
-<footer>© APU IT Academy, রংপুর · <span id="slogan"></span><br><a id="fbl" target="_blank" rel="noopener">ফেসবুক পেজ</a></footer>
+<!-- ============ শেষ আহ্বান ============ -->
+<div class="cta-band"><div class="wrap">
+  <div><h2 data-s="cta.title">আজই আপনার আইটি যাত্রা শুরু করুন</h2><p data-s="cta.sub"></p></div>
+  <div class="ctab"><a class="btn main" href="#join">ভর্তির আবেদন করুন</a><a class="btn line" id="ctaCall">📞 কল করুন</a></div>
+</div></div>
+
+<!-- ============ ফুটার ============ -->
+<footer><div class="wrap fcols">
+  <div><div class="fbrand"><img src="logo.png" data-logo alt="">APU <b>IT Academy</b></div><p id="slogan"></p><a class="btn fb" id="fbl" target="_blank" rel="noopener"></a></div>
+  <div><h4>দ্রুত লিংক</h4><a href="#courses">কোর্সসমূহ</a><a href="#founder">প্রতিষ্ঠাতা</a><a href="#team">প্রশিক্ষকগণ</a><a href="#join">ভর্তি ও জিজ্ঞাসা</a><a href="#contact">যোগাযোগ</a></div>
+  <div><h4>যোগাযোগ</h4><div id="fcontact"></div></div>
+</div><div class="copy">© APU IT Academy, রংপুর। সর্বস্বত্ব সংরক্ষিত।</div></footer>
 
 <!-- ============ ভাসমান বাটন ============ -->
+<a id="fbf2" target="_blank" rel="noopener" aria-label="ফেসবুক পেজ"></a>
 <a id="wa" target="_blank" rel="noopener">💬 <span>হোয়াটসঅ্যাপ</span></a>
 <button id="fab" aria-label="AI সহায়ক খুলুন">🤖 <span>প্রশ্ন করুন</span></button>
 
 <!-- ============ AI সহায়ক (চ্যাট) ============ -->
 <div id="cp" role="dialog" aria-label="APU সহায়ক">
-  <div class="ch"><img src="logo.png" alt=""><div><b>APU সহায়ক</b><small>ভর্তি, কোর্স ও আইটি বিষয়ে উত্তর</small></div><button id="cx" aria-label="বন্ধ করুন">✕</button></div>
+  <div class="ch"><img src="logo.png" data-logo alt=""><div><b>APU সহায়ক</b><small>ভর্তি, কোর্স ও আইটি বিষয়ে উত্তর</small></div><button id="cx" aria-label="বন্ধ করুন">✕</button></div>
   <div id="chat"></div>
   <div id="chips"></div>
   <form id="cf" autocomplete="off"><input id="q" placeholder="আপনার প্রশ্ন লিখুন..." aria-label="প্রশ্ন"><button aria-label="পাঠান">➤</button></form>
 </div>
 
-<!-- data.js = সব তথ্য (এটাই আপনি বেশি বদলাবেন), app.js = কাজ করার কোড -->
+<!-- data.js = সব তথ্য ও হেডলাইন (এটাই আপনি বেশি বদলাবেন), app.js = কাজ করার কোড -->
 <script src="data.js"></script>
 <script src="app.js"></script>
 </body>
