@@ -27,6 +27,13 @@
 <div id="topbar"><div class="tb"></div></div>
 <div id="notice" hidden></div>
 
+<!-- ★ উৎসবের শুভেচ্ছা পট্টি (data.js → FESTIVALS; উৎসবের সময় নিজে থেকে দেখাবে) -->
+<div id="festbar" hidden>
+  <span class="fbe" id="fbE" aria-hidden="true"></span>
+  <span class="fbt"><b id="fbT"></b><em id="fbS"></em></span>
+  <button type="button" id="fbB">শুভেচ্ছা বার্তা দেখুন</button>
+</div>
+
 <!-- ============ মেনু ============ -->
 <header><div class="nav">
   <a class="brand" href="#top"><img src="logo.png" data-logo alt="APU IT Academy লোগো">APU <b>IT Academy</b></a>
@@ -77,6 +84,26 @@
   <h2 class="rv" data-s="modes.title">অফলাইন ও অনলাইন, দুইভাবেই শিখুন</h2>
   <p class="sub rv" data-s="modes.sub"></p>
   <div class="mg" id="modes-list"></div>
+</div></section>
+
+<!-- ============ আমাদের একাডেমি: নতুন ছবি (data.js → ACADEMY) ============ -->
+<section class="campus" id="campus"><div class="wrap cmp">
+  <div class="cmp-t rv">
+    <span class="tag" data-s="campus.tag">আমাদের একাডেমি</span>
+    <h2 data-s="campus.title">শেখার জন্য একটি আধুনিক ঠিকানা</h2>
+    <p class="sub" data-s="campus.sub"></p>
+    <ul class="cmp-l" id="campus-pts"></ul>
+    <a class="btn main" href="#join">ডেমো ক্লাসের জন্য আবেদন</a>
+    <a class="btn line" href="#contact">📍 ঠিকানা ও যোগাযোগ</a>
+  </div>
+  <figure class="cmp-i rv">
+    <div class="cmp-fr">
+      <img id="campus-img" data-zoom alt="" loading="lazy">
+      <span class="cmp-badge"><img data-logo alt="">APU IT Academy</span>
+      <figcaption id="campus-cap"></figcaption>
+    </div>
+    <span class="cmp-hint">🔍 বড় করে দেখতে ছবিতে চাপ দিন</span>
+  </figure>
 </div></section>
 
 <!-- ============ কোর্স ============ -->
@@ -199,6 +226,39 @@
   <div id="chat"></div>
   <div id="chips"></div>
   <form id="cf" autocomplete="off"><input id="q" placeholder="আপনার প্রশ্ন লিখুন..." aria-label="প্রশ্ন"><button aria-label="পাঠান">➤</button></form>
+</div>
+
+<!-- ============ ★ উৎসবের বড় শুভেচ্ছা কার্ড ============ -->
+<div id="fxp" hidden aria-hidden="true"></div>
+<div id="fest" hidden>
+  <div class="fx-back" id="fxBack"></div>
+  <div class="fx-card" role="dialog" aria-modal="true" aria-labelledby="festT">
+    <button type="button" class="fx-x" id="fxX" aria-label="বন্ধ করুন">✕</button>
+    <div class="fx-top">
+      <div class="fx-logo"><img data-logo alt="APU IT Academy"></div>
+      <div class="fx-emoji" id="fxE" aria-hidden="true"></div>
+      <div class="fx-sub" id="fxS"></div>
+      <div class="fx-t" id="festT" role="heading" aria-level="2"></div>
+      <span class="fx-line"></span>
+    </div>
+    <div class="fx-body">
+      <p class="fx-msg" id="fxM"></p>
+      <p class="fx-note" id="fxN" hidden></p>
+      <div class="fx-sign">শুভেচ্ছান্তে<b id="fxSign"></b></div>
+      <div class="fx-acts">
+        <button type="button" class="btn main" id="fxGo">ওয়েবসাইটে প্রবেশ করুন</button>
+        <a class="btn green" id="fxWa" target="_blank" rel="noopener">💬 হোয়াটসঅ্যাপে শেয়ার</a>
+        <a class="btn fb" id="fxFb" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ ছবি বড় করে দেখা ============ -->
+<div id="lb" hidden role="dialog" aria-modal="true" aria-label="ছবি">
+  <button type="button" id="lbx" aria-label="বন্ধ করুন">✕</button>
+  <img id="lbi" alt="">
+  <p id="lbc"></p>
 </div>
 
 <!-- data.js = সব তথ্য ও হেডলাইন (এটাই আপনি বেশি বদলাবেন), app.js = কাজ করার কোড -->

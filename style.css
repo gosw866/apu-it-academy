@@ -310,3 +310,115 @@ h2::after{content:"";display:block;width:54px;height:4px;border-radius:4px;backg
 .mc li::before{content:"✔";position:absolute;left:0;color:var(--blue)}
 .mc.alt li::before{color:var(--sun)}
 @media(max-width:800px){.mg{grid-template-columns:1fr}}
+
+/* =====================================================================
+   ★★★ নতুন: উৎসবের শুভেচ্ছা, একাডেমির ছবি, ছবি বড় করে দেখা
+   (উৎসবের রং data.js থেকে আসে: --f1, --f2, --fa)
+   ===================================================================== */
+:root{--f1:#0b1f5c;--f2:#1565e8;--fa:#ffd666}
+
+/* ---------- উপরের শুভেচ্ছা পট্টি ---------- */
+#festbar{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:9px 16px;color:#fff;background:linear-gradient(100deg,var(--f1),var(--f2));border-bottom:3px solid var(--fa)}
+#festbar[hidden]{display:none}
+#festbar::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(110deg,transparent 38%,#ffffff2b 50%,transparent 62%);transform:translateX(-110%);animation:fsheen 7s ease-in-out infinite}
+@keyframes fsheen{0%,55%{transform:translateX(-110%)}100%{transform:translateX(110%)}}
+#festbar .fbe{font-size:24px;line-height:1}
+#festbar .fbt b{font-size:18px;font-weight:700}
+#festbar .fbt em{font-style:normal;color:var(--fa);font-weight:600;font-size:14.5px;margin-left:10px}
+#festbar button{position:relative;z-index:1;background:#ffffff1f;color:#fff;border:1px solid var(--fa);border-radius:20px;padding:3px 16px;font:inherit;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s,color .2s}
+#festbar button:hover{background:var(--fa);color:#1b2240}
+#festbar button[hidden]{display:none}
+
+/* হিরোতে শুভেচ্ছা ট্যাগ ও হালকা আলো */
+.hero .tag.festtag{background:var(--fa);color:#1b2240;font-weight:700;font-size:16px;padding:4px 18px}
+body.has-fest .hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 10% 90%,#ffffff1c,transparent 42%)}
+
+/* ---------- বড় শুভেচ্ছা কার্ড ---------- */
+#fest{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:16px;overflow-y:auto}
+#fest[hidden]{display:none}
+.fx-back{position:fixed;inset:0;background:#030a22cc;backdrop-filter:blur(6px);animation:fxfade .4s both}
+.fx-card{position:relative;width:min(560px,100%);max-height:calc(100dvh - 32px);overflow-y:auto;border-radius:28px;background:#fff;box-shadow:0 40px 90px #000a;animation:fxpop .6s cubic-bezier(.2,1,.3,1) both}
+.fx-top{position:relative;padding:40px 24px 58px;text-align:center;color:#fff;overflow:hidden;
+  background:repeating-radial-gradient(circle at 50% 30%,#ffffff12 0 2px,transparent 2px 46px),linear-gradient(160deg,var(--f1),var(--f2))}
+.fx-logo{position:absolute;top:14px;left:14px;width:46px;height:46px;border-radius:50%;background:#fff;padding:2px;box-shadow:0 4px 14px #0004}
+.fx-logo img{display:block;width:100%;height:100%;border-radius:50%}
+.fx-x{position:absolute;top:14px;right:14px;z-index:2;width:38px;height:38px;border-radius:50%;border:0;background:#ffffff2e;color:#fff;font-size:18px;cursor:pointer;transition:background .2s}
+.fx-x:hover{background:#ffffff55}
+.fx-emoji{width:96px;height:96px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:50px;line-height:1;background:#ffffff1f;border:2px solid var(--fa);box-shadow:0 0 0 10px #ffffff12,0 0 56px var(--fa)}
+.fx-sub{font-weight:600;font-size:16px;color:var(--fa);min-height:1.4em}
+.fx-t{font-size:clamp(30px,8vw,50px);font-weight:700;line-height:1.25;margin-top:4px;text-shadow:0 4px 24px #0006}
+.fx-line{display:block;width:64px;height:4px;border-radius:4px;background:var(--fa);margin:16px auto 0}
+.fx-body{position:relative;margin-top:-28px;background:#fff;border-radius:28px 28px 0 0;padding:28px 26px 28px;text-align:center}
+.fx-msg{font-size:18px;line-height:1.85;color:var(--ink)}
+.fx-note{margin-top:16px;background:var(--soft);border-left:4px solid var(--sun);padding:10px 14px;border-radius:10px;text-align:left;font-weight:600;color:var(--navy);font-size:16px}
+.fx-sign{margin-top:20px;color:var(--mute);font-size:15px}
+.fx-sign b{display:block;color:var(--navy);font-size:17px;margin-top:2px}
+.fx-acts{margin-top:22px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.fx-acts .btn{margin:0}
+@keyframes fxfade{from{opacity:0}}
+@keyframes fxpop{from{opacity:0;transform:translateY(44px) scale(.92)}}
+@keyframes fxout{to{opacity:0;transform:translateY(24px) scale(.97)}}
+@keyframes fxfadeout{to{opacity:0}}
+#fest.bye .fx-card{animation:fxout .26s ease-in both}
+#fest.bye .fx-back{animation:fxfadeout .26s both}
+
+/* ---------- ভাসমান নকশা (চাঁদ-তারা, ফুল, প্রদীপ…) ---------- */
+#fxp{position:fixed;inset:0;z-index:120;pointer-events:none;overflow:hidden;transition:opacity 1.2s}
+#fxp[hidden]{display:none}
+#fxp.out{opacity:0}
+#fxp span{position:absolute;top:-10vh;font-size:var(--s);line-height:1;opacity:.92;filter:drop-shadow(0 2px 4px #0003);animation:fxfall var(--d) linear var(--w) infinite;will-change:transform}
+@keyframes fxfall{
+  0%{transform:translate3d(0,-10vh,0) rotate(0)}
+  50%{transform:translate3d(var(--x),55vh,0) rotate(180deg)}
+  100%{transform:translate3d(calc(var(--x) * -1),112vh,0) rotate(360deg)}
+}
+
+/* ---------- আমাদের একাডেমি (ছবির সেকশন) ---------- */
+.campus{background:radial-gradient(circle at 88% 12%,#1565e866,transparent 45%),radial-gradient(#ffffff0f 1.5px,transparent 1.5px) 0 0/26px 26px,var(--navy);color:#fff;overflow:hidden}
+.campus[hidden]{display:none}
+.cmp{display:grid;grid-template-columns:.85fr 1.15fr;gap:56px;align-items:center}
+.campus h2{color:#fff}
+.campus .sub{color:#c9d6ff}
+.campus .tag{background:#ffffff1f;color:#ffd666}
+.cmp-l{list-style:none;padding:0;margin:0 0 26px}
+.cmp-l li{position:relative;padding:6px 0 6px 32px;font-weight:600}
+.cmp-l li::before{content:"✔";position:absolute;left:0;color:var(--sun)}
+.cmp-i{position:relative;margin:0}
+#campus-img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover;border-radius:24px;box-shadow:16px 16px 0 var(--sun),0 30px 60px #0008;cursor:zoom-in;transition:transform .35s,box-shadow .35s}
+#campus-img:hover{transform:translate(-4px,-4px);box-shadow:20px 20px 0 var(--sun),0 34px 64px #000a}
+.cmp-badge{position:absolute;top:16px;left:16px;display:flex;align-items:center;gap:8px;background:#fffffff0;color:var(--navy);font-weight:700;font-size:14px;padding:5px 14px 5px 6px;border-radius:30px;box-shadow:0 8px 20px #0004;pointer-events:none}
+.cmp-badge img{width:28px;height:28px;border-radius:50%}
+.cmp-i figcaption{position:absolute;left:0;right:0;bottom:0;padding:54px 22px 16px;border-radius:0 0 24px 24px;background:linear-gradient(transparent,#061547ea);color:#fff;font-weight:700;font-size:19px;pointer-events:none}
+.cmp-hint{display:block;margin-top:30px;color:#9fb6f5;font-size:14px}
+
+/* ---------- ছবি বড় করে দেখা ---------- */
+.gal img{cursor:zoom-in}
+#lb{position:fixed;inset:0;z-index:130;display:grid;place-items:center;align-content:center;gap:12px;padding:20px;background:#030a22f0;cursor:zoom-out;animation:fxfade .25s both}
+#lb[hidden]{display:none}
+#lb img{max-width:min(94vw,1400px);max-height:82vh;object-fit:contain;border-radius:14px;box-shadow:0 30px 80px #000a}
+#lb p{color:#c9d6ff;font-size:15px;text-align:center}
+#lbx{position:absolute;top:14px;right:14px;width:42px;height:42px;border-radius:50%;border:0;background:#ffffff26;color:#fff;font-size:20px;cursor:pointer}
+
+/* ---------- মোবাইল ---------- */
+@media(max-width:800px){
+  #festbar{padding:8px 12px;gap:8px}
+  #festbar .fbt{text-align:center}
+  #festbar .fbt b{font-size:16px}
+  #festbar .fbt em{display:block;margin:0;font-size:13px}
+  .fx-top{padding:46px 18px 54px}
+  .fx-emoji{width:82px;height:82px;font-size:42px}
+  .fx-body{padding:26px 18px 24px}
+  .fx-msg{font-size:17px}
+  .fx-acts .btn{flex:1 1 100%;justify-content:center}
+  .cmp{grid-template-columns:1fr;gap:40px}
+  .cmp-i{order:-1}
+  #campus-img{box-shadow:10px 10px 0 var(--sun),0 24px 50px #0008}
+  #campus-img:hover{transform:none;box-shadow:10px 10px 0 var(--sun),0 24px 50px #0008}
+  .cmp-hint{margin-top:22px}
+}
+@media(prefers-reduced-motion:reduce){#fxp{display:none}}
+
+/* ছোট সংশোধন: ক্যাপশন ছবির ভেতরে, শেয়ার বাটন পাশাপাশি */
+.cmp-fr{position:relative}
+.fx-acts #fxGo{flex:1 1 100%;justify-content:center}
+.fx-acts #fxWa,.fx-acts #fxFb{flex:1 1 0;min-width:170px;justify-content:center}

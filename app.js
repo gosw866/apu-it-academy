@@ -85,8 +85,21 @@ if (typeof TESTIMONIALS !== "undefined" && TESTIMONIALS.length) {
 }
 if (typeof GALLERY !== "undefined" && GALLERY.length) {
   $("#gallery").hidden = false;
-  $("#gallery-list").innerHTML = GALLERY.map(function (g) { return '<img class="rv" loading="lazy" src="' + g + '" alt="APU IT Academy গ্যালারি" onerror="this.remove()">'; }).join("");
+  $("#gallery-list").innerHTML = GALLERY.map(function (g) { return '<img class="rv" data-zoom tabindex="0" loading="lazy" src="' + g + '" alt="APU IT Academy গ্যালারি" onerror="this.remove()">'; }).join("");
 }
+
+/* ---------- ★ আমাদের একাডেমি (ছবি) ---------- */
+(function () {
+  var cs = $("#campus"); if (!cs) return;
+  if (typeof ACADEMY === "undefined" || !ACADEMY.img) { cs.hidden = true; return; }
+  var ci = $("#campus-img");
+  ci.onerror = function () { cs.hidden = true; };
+  ci.alt = ACADEMY.alt || "APU IT Academy"; ci.tabIndex = 0; ci.setAttribute("role", "button"); ci.setAttribute("aria-label", "ছবি বড় করে দেখুন");
+  ci.src = ACADEMY.img;
+  $("#campus-cap").textContent = ACADEMY.caption || "";
+  $("#campus-cap").hidden = !ACADEMY.caption;
+  $("#campus-pts").innerHTML = (ACADEMY.pts || []).map(function (x) { return "<li>" + x + "</li>"; }).join("");
+})();
 
 /* ---------- ধাপ, জিজ্ঞাসা, যোগাযোগ, ফুটার ---------- */
 $("#steps").innerHTML = STEPS.map(function (s) { return '<div class="step rv"><h3>' + s.t + '</h3><p>' + s.d + '</p></div>'; }).join("");
@@ -143,6 +156,144 @@ onscroll = function () {
   navs.forEach(function (n) { n.classList.toggle("act", n.getAttribute("href") === "#" + cur); });
 };
 var nv = $("#nv"); $("#mb").onclick = function () { nv.classList.toggle("open"); }; nv.onclick = function () { nv.classList.remove("open"); };
+
+/* =====================================================================
+   ★ উৎসব ও দিবসের শুভেচ্ছা (তথ্য: data.js → FESTIVALS)
+   তারিখ মিললে: উপরে শুভেচ্ছা পট্টি + প্রথমবার ঢুকলে বড় শুভেচ্ছা কার্ড + ভাসমান নকশা
+   ===================================================================== */
+(function () {
+  if (typeof FESTIVALS === "undefined" || typeof FEST_ON === "undefined" || !FEST_ON) return;
+  var qs = ""; try { qs = new URLSearchParams(location.search).get("fest") || ""; } catch (e) {}
+  if (qs === "off") return;
+  var force = qs || (typeof FEST_FORCE !== "undefined" ? FEST_FORCE : "");
+  var motion = !matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* আজকের তারিখ — বাংলাদেশের সময় অনুযায়ী (ভিজিটর যেখানেই থাকুন) */
+  function today() {
+    try {
+      var t = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
+      if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+    } catch (e) {}
+    var d = new Date(); return d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+  }
+  var td = today(), y = +td.slice(0, 4), md = td.slice(5);
+  function inWin(f) {
+    var hit = false;
+    (f.ranges || []).forEach(function (r) { if (td >= r[0] && td <= r[1]) hit = true; });
+    (f.fixed || []).forEach(function (r) { var a = r[0], b = r[1]; if (a <= b ? (md >= a && md <= b) : (md >= a || md <= b)) hit = true; });
+    return hit;
+  }
+  var f = null;
+  FESTIVALS.forEach(function (x) { if (!f && (force ? x.id === force : inWin(x))) f = x; });
+  if (!f) return;
+
+  /* লেখার ভেতরের {YEAR} ও {BN_YEAR} */
+  function bnd(n) { try { return n.toLocaleString("bn-BD", { useGrouping: false }); } catch (e) { return "" + n; } }
+  var ey = md >= "07-01" ? y + 1 : y, by = (md > "04-15" ? y + 1 : y) - 593;
+  function fill2(t) { return (t || "").replace(/\{YEAR\}/g, bnd(ey)).replace(/\{BN_YEAR\}/g, bnd(by)); }
+  var title = fill2(f.t);
+
+  /* রং ও পাতার সাজ */
+  var rs = document.documentElement.style;
+  rs.setProperty("--f1", f.c1 || "#0b1f5c"); rs.setProperty("--f2", f.c2 || "#1565e8"); rs.setProperty("--fa", f.a || "#ffd666");
+  document.body.classList.add("has-fest"); if (f.mood === "solemn") document.body.classList.add("fest-solemn");
+  document.title = title + " | " + document.title;
+  var tc = document.querySelector("meta[name=theme-color]"); if (tc) tc.content = f.c1 || tc.content;
+
+  /* হিরোতে ছোট শুভেচ্ছা ট্যাগ */
+  var ht = document.querySelector("#top .tag");
+  if (ht) { var ft = document.createElement("span"); ft.className = "tag festtag"; ft.textContent = f.e + " " + title; ht.parentNode.insertBefore(ft, ht); ht.style.display = "none"; }
+
+  /* উপরের শুভেচ্ছা পট্টি */
+  $("#fbE").textContent = f.e; $("#fbT").textContent = title; $("#fbS").textContent = f.sub || "";
+  $("#festbar").hidden = false;
+
+  /* বড় শুভেচ্ছা কার্ডের লেখা */
+  $("#fxE").textContent = f.e; $("#fxS").textContent = f.sub || ""; $("#festT").textContent = title; $("#fxM").textContent = f.msg || "";
+  if (f.note) { $("#fxN").textContent = f.note; $("#fxN").hidden = false; }
+  $("#fxSign").textContent = (typeof FOUNDER !== "undefined" && FOUNDER.n ? FOUNDER.n + " ও " : "") + APU.name + " পরিবার";
+  var page = location.protocol.indexOf("http") === 0 ? location.href.split("#")[0].split("?")[0] : "";
+  $("#fxWa").href = "https://wa.me/?text=" + encodeURIComponent(title + "\n" + (f.msg || "") + "\n— " + APU.name + (page ? "\n" + page : ""));
+  $("#fxFb").innerHTML = FBI + "<span>ফেসবুকে শেয়ার</span>";
+  $("#fxFb").href = page ? "https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(page) : APU.fb;
+
+  /* AI সহায়কের স্বাগত বার্তায় শুভেচ্ছা */
+  if (typeof WELCOME !== "undefined") WELCOME = f.e + " <b>" + title + (f.mood === "solemn" ? "" : "!") + "</b>\n" + WELCOME;
+
+  /* ভাসমান নকশা (ঈদে চাঁদ-তারা, পূজায় ফুল-প্রদীপ…) */
+  var burstT = 0;
+  function burst(ms) {
+    var box = $("#fxp"); clearTimeout(burstT);
+    if (!motion || f.mood === "solemn" || !f.fx || !f.fx.length) return;
+    if (box.hidden || !box.firstChild) {
+      box.innerHTML = "";
+      var n = f.n || 20; if (innerWidth < 600) n = Math.round(n * .6);
+      for (var i = 0; i < n; i++) {
+        var sp = document.createElement("span"); sp.textContent = f.fx[i % f.fx.length];
+        sp.style.cssText = "left:" + (Math.random() * 100).toFixed(1) + "%;--s:" + (15 + Math.random() * 18).toFixed(0) + "px;--d:" + (8 + Math.random() * 7).toFixed(1) + "s;--w:-" + (Math.random() * 12).toFixed(1) + "s;--x:" + Math.round(Math.random() * 90 - 45) + "px";
+        box.appendChild(sp);
+      }
+    }
+    box.classList.remove("out"); box.hidden = false;
+    if (ms) burstT = setTimeout(function () { box.classList.add("out"); burstT = setTimeout(function () { box.hidden = true; box.innerHTML = ""; }, 1300); }, ms);
+  }
+
+  /* কার্ড খোলা-বন্ধ */
+  var fest = $("#fest"), card = fest.querySelector(".fx-card"), back = null;
+  function openFest() {
+    back = document.activeElement; fest.classList.remove("bye"); fest.hidden = false;
+    document.body.style.overflow = "hidden"; burst(0); $("#fxGo").focus();
+  }
+  function closeFest() {
+    if (fest.hidden || fest.classList.contains("bye")) return;
+    fest.classList.add("bye"); burst(6500);
+    setTimeout(function () {
+      fest.hidden = true; fest.classList.remove("bye"); document.body.style.overflow = "";
+      if (back && back.focus) back.focus();
+    }, 260);
+  }
+  $("#fxGo").onclick = closeFest; $("#fxX").onclick = closeFest; $("#fxBack").onclick = closeFest;
+  document.addEventListener("keydown", function (e) {
+    if (fest.hidden) return;
+    if (e.key === "Escape") { closeFest(); return; }
+    if (e.key !== "Tab") return;
+    var els = [].slice.call(card.querySelectorAll("button,a[href]")).filter(function (el) { return el.offsetParent !== null; });
+    if (!els.length) return;
+    var first = els[0], last = els[els.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+
+  /* একজন ভিজিটরকে একটি উৎসবের কার্ড বছরে একবারই দেখানো হয় */
+  var popupOn = typeof FEST_POPUP === "undefined" || FEST_POPUP, key = "apu_fest_" + f.id + "_" + ey;
+  function seen() { try { return !!localStorage.getItem(key); } catch (e) { try { return !!sessionStorage.getItem(key); } catch (e2) { return false; } } }
+  function mark() { try { localStorage.setItem(key, "1"); } catch (e) { try { sessionStorage.setItem(key, "1"); } catch (e2) {} } }
+  $("#fbB").hidden = !popupOn; $("#fbB").onclick = openFest;
+  if (popupOn && (force || !seen())) {
+    if (!force) mark();
+    setTimeout(openFest, 900);
+  } else burst(7000);
+})();
+
+/* ---------- ছবি বড় করে দেখা (data-zoom দেওয়া ছবিতে চাপলে) ---------- */
+(function () {
+  var lb = $("#lb"), li = $("#lbi"), lc = $("#lbc"), back = null;
+  function open(im) {
+    back = document.activeElement; li.src = im.currentSrc || im.src; li.alt = im.alt || ""; lc.textContent = im.alt || "";
+    lb.hidden = false; document.body.style.overflow = "hidden"; $("#lbx").focus();
+  }
+  function close() {
+    lb.hidden = true; li.removeAttribute("src");
+    if ($("#fest").hidden) document.body.style.overflow = "";
+    if (back && back.focus) back.focus();
+  }
+  document.addEventListener("click", function (e) { var z = e.target.closest ? e.target.closest("[data-zoom]") : null; if (z && z.tagName === "IMG") open(z); });
+  document.addEventListener("keydown", function (e) {
+    if (!lb.hidden && e.key === "Escape") { close(); return; }
+    if ((e.key === "Enter" || e.key === " ") && lb.hidden && e.target.matches && e.target.matches("img[data-zoom]")) { e.preventDefault(); open(e.target); }
+  });
+  lb.onclick = close;
+})();
 
 /* =====================================================================
    AI সহায়ক (চ্যাট)
